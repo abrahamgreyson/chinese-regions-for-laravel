@@ -1,12 +1,12 @@
 <?php
 
-namespace ChineseRegionsForLaravel\ChineseRegionsForLaravel;
+namespace Abe\ChineseRegions;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use ChineseRegionsForLaravel\ChineseRegionsForLaravel\Commands\ChineseRegionsForLaravelCommand;
+use Abe\ChineseRegions\Commands\ChineseRegionsCommand;
 
-class ChineseRegionsForLaravelServiceProvider extends PackageServiceProvider
+class ChineseRegionsServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -19,7 +19,7 @@ class ChineseRegionsForLaravelServiceProvider extends PackageServiceProvider
             ->name('chinese-regions-for-laravel')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_chinese-regions-for-laravel_table')
-            ->hasCommand(ChineseRegionsForLaravelCommand::class);
+            ->hasMigration('create_chinese_regions_table')
+            ->hasCommand(ChineseRegionsCommand::class);
     }
 }

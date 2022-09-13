@@ -1,6 +1,6 @@
 <?php
 
-namespace ChineseRegionsForLaravel\ChineseRegionsForLaravel\Database\Factories;
+namespace Abe\ChineseRegions\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

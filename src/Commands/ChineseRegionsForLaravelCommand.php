@@ -1,12 +1,12 @@
 <?php
 
-namespace ChineseRegionsForLaravel\ChineseRegionsForLaravel\Commands;
+namespace Abe\ChineseRegions\Commands;
 
 use Illuminate\Console\Command;
 
-class ChineseRegionsForLaravelCommand extends Command
+class ChineseRegionsCommand extends Command
 {
-    public $signature = 'chinese-regions-for-laravel';
+    public $signature = 'chinese-regions';
 
     public $description = 'My command';
 
