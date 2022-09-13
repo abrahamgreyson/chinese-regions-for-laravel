@@ -4,7 +4,7 @@
     "keywords": [
         "abe",
         "laravel",
-        "chinese-regions"
+        "chinese regions"
     ],
     "homepage": "https://github.com/abe/chinese-regions-for-laravel",
     "license": "MIT",
@@ -56,6 +56,9 @@
         }
     },
     "extra": {
+        "abe": {
+            "wechat": "abrahamgreyson"
+        },
         "laravel": {
             "providers": [
                 "Abe\\ChineseRegions\\ChineseRegionsServiceProvider"
