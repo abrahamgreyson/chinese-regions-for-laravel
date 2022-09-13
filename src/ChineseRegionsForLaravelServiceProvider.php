@@ -2,9 +2,9 @@
 
 namespace Abe\ChineseRegions;
 
+use Abe\ChineseRegions\Commands\ChineseRegionsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Abe\ChineseRegions\Commands\ChineseRegionsCommand;
 
 class ChineseRegionsServiceProvider extends PackageServiceProvider
 {

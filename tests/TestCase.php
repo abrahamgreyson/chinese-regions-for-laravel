@@ -2,9 +2,9 @@
 
 namespace Abe\ChineseRegions\Tests;
 
+use Abe\ChineseRegions\ChineseRegionsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Abe\ChineseRegions\ChineseRegionsServiceProvider;
 
 class TestCase extends Orchestra
 {
