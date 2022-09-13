@@ -26,8 +26,12 @@ return new class extends Migration
 
             $table->timestamps();
 
+            // for where
             $table->index('street_code');
+            // for where
             $table->index('area_code');
+            // for first(1)
+            $table->index('code');
         });
     }
 
