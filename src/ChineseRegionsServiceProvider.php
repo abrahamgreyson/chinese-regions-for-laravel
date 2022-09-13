@@ -17,8 +17,6 @@ class ChineseRegionsServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('chinese-regions-for-laravel')
-            ->hasConfigFile()
-            ->hasViews()
             ->hasMigration('create_chinese_regions_table')
             ->hasCommand(ChineseRegionsCommand::class);
     }
