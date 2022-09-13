@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace ChineseRegionsForLaravel\ChineseRegionsForLaravel\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ChineseRegionsForLaravelCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'chinese-regions-for-laravel';
 
     public $description = 'My command';
 
