@@ -12,12 +12,15 @@ use Symfony\Component\Process\Process;
 class ChineseRegionsCommand extends Command
 {
     public $signature = 'chinese-regions:import
-                         {--A|via= : 指定下载数据的方式，可选值为 npm 和 github }
+                         {--A|via= : 指定下载数据的方式，可选值为 npm、github 和 gitee }
                          {--T|table=chinese_regions : 指定数据表名称，默认为 `chinese_regions` }
                          {--F|force}';
 
     public $description = '导入中国行政区划到数据库';
 
+
+    public static string $github = 'git@github.com:modood/Administrative-divisions-of-China.git';
+    public static string $gitee = 'https://gitee.com/modood/Administrative-divisions-of-China.git';
 
     public function handle(): int
     {
@@ -50,33 +53,51 @@ class ChineseRegionsCommand extends Command
             }
 
             // Check if the git command executable.
-            if ($via === 'git' && !$this->gitCommandExists()) {
+            if (!in_array($via, ['github', 'gitee']) && !$this->gitCommandExists()) {
                 $this->error('Git 命令不存在，请先安装 Git，或使用 --via=npm 选项使用 NPM 下载数据');
                 return self::FAILURE;
             }
 
-            $this->error('--via 的可选值只能是 npm 或 git');
-            return self::FAILURE;
+//            $this->error('--via 的可选值只能是 npm 或 git');
+//            return self::FAILURE;
         } else {
             $via = $this->npmCommandExists() ? 'npm' : 'git';
 
             $this->info("未指定下载方式，自动选择 {$via} 方式下载");
             // use symfony process to execute npm install china-division
-
-            $basePath = base_path();
-            $process = new Process(['npm', 'i', 'china-division']);
-            $process->setTimeout(3600);
-            $process->run(function ($type, $buffer) {
-                $this->line($buffer);
-            });
-            if (!$process->isSuccessful()) {
-                throw new ProcessFailedException($process);
-            }
         }
 
 
         $this->info('导入完成，共导入 ' . 1234 . ' 条数据');
         return self::SUCCESS;
+    }
+
+    /**
+     * Pull the data source from remote repository.
+     * @param string $via
+     * @return bool
+     */
+    public function pullData(string $via = 'npm'): bool
+    {
+        if (!in_array($via, ['npm', 'github', 'gitee'])) {
+            return false;
+        }
+
+        $process = match ($via){
+            "github"=> new Process(['git', 'clone', static::$github]),
+            "npm" => new Process(['npm', 'i', 'china-division']),
+            default => new Process(['git', 'clone', static::$gitee]),
+        };
+        $process->setTimeout(600);
+        $process->setIdleTimeout(120);
+        $process->run(function ($type, $buffer) {
+            $this->line($buffer);
+        });
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return true;
     }
 
     /**
