@@ -18,44 +18,48 @@ class ChineseRegionsCommand extends Command
 
     public $description = '导入中国行政区划到数据库';
 
-
     public function handle(): int
     {
         // 生产环境警告
-        if (App::environment() === 'production' && !$this->option('force')) {
+        if (App::environment() === 'production' && ! $this->option('force')) {
             $this->warn(
                 '这个命令将下载数据并导入到数据库中，你不应该在生产环境中执行，如果非得执行，请使用 --force 参数'
             );
+
             return self::FAILURE;
         }
 
         // 确定数据表存在
-        if (!$this->tableExists()) {
+        if (! $this->tableExists()) {
             $this->warn('数据表不存在，请先执行 `php artisan migrate` 迁移数据表');
+
             return self::FAILURE;
         }
         // 确定数据表为空
-        if ($this->tableNotEmpty() && !$this->option('overwrite')) {
+        if ($this->tableNotEmpty() && ! $this->option('overwrite')) {
             $this->warn('这个命令会全量导入数据，当前数据表不为空，请使用 --overwrite 参数覆写（清空后导入）');
+
             return self::FAILURE;
         }
-
 
         $this->info('开始从网络下载数据...');
         if ($via = $this->option('via')) {
             // Check if the npm command executable.
-            if ($via === 'npm' && !$this->npmCommandExists()) {
+            if ($via === 'npm' && ! $this->npmCommandExists()) {
                 $this->error('NPM 命令不存在，请先安装 NPM，或使用 --via=git 选项直接从 Github 下载数据');
+
                 return self::FAILURE;
             }
 
             // Check if the git command executable.
-            if ($via === 'git' && !$this->gitCommandExists()) {
+            if ($via === 'git' && ! $this->gitCommandExists()) {
                 $this->error('Git 命令不存在，请先安装 Git，或使用 --via=npm 选项使用 NPM 下载数据');
+
                 return self::FAILURE;
             }
 
             $this->error('--via 的可选值只能是 npm 或 git');
+
             return self::FAILURE;
         } else {
             $via = $this->npmCommandExists() ? 'npm' : 'git';
@@ -69,13 +73,13 @@ class ChineseRegionsCommand extends Command
             $process->run(function ($type, $buffer) {
                 $this->line($buffer);
             });
-            if (!$process->isSuccessful()) {
+            if (! $process->isSuccessful()) {
                 throw new ProcessFailedException($process);
             }
         }
 
+        $this->info('导入完成，共导入 '. 1234 .' 条数据');
 
-        $this->info('导入完成，共导入 ' . 1234 . ' 条数据');
         return self::SUCCESS;
     }
 
@@ -110,8 +114,9 @@ class ChineseRegionsCommand extends Command
      */
     public function commandExecutable(string $command): bool
     {
-        $test = $this->onWindows() ? "where" : "which";
-        return is_executable(trim((string)`$test $command`));
+        $test = $this->onWindows() ? 'where' : 'which';
+
+        return is_executable(trim((string) `$test $command`));
     }
 
     /**
@@ -129,8 +134,10 @@ class ChineseRegionsCommand extends Command
      */
     public function tableNotEmpty(): bool
     {
-        $clazz = new class extends Model {
+        $clazz = new class extends Model
+        {
         };
+
         return $clazz->setTable($this->option('table'))->exists();
     }
 }
