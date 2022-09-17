@@ -57,6 +57,7 @@ class ChineseRegionsCommand extends Command
                 $this->error('Git 命令不存在，请先安装 Git，或使用 --via=npm 选项使用 NPM 下载数据');
                 return self::FAILURE;
             }
+            $this->pullData('github');
 
 //            $this->error('--via 的可选值只能是 npm 或 git');
 //            return self::FAILURE;
@@ -83,16 +84,17 @@ class ChineseRegionsCommand extends Command
             return false;
         }
 
-        $process = match ($via){
-            "github"=> new Process(['git', 'clone', static::$github]),
-            "npm" => new Process(['npm', 'i', 'china-division']),
-            default => new Process(['git', 'clone', static::$gitee]),
+        $process = match ($via) {
+            "github" => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress'], cwd: base_path()),
+            "npm" => new Process(['npm', 'i', 'china-division'], cwd: base_path()),
+            default => new Process(['git', 'clone', static::$gitee, 'chinese-regions-data-source', '----progress'], cwd: base_path()),
         };
         $process->setTimeout(600);
         $process->setIdleTimeout(120);
         $process->run(function ($type, $buffer) {
             $this->line($buffer);
         });
+
         if (!$process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
