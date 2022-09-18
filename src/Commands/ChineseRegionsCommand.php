@@ -6,7 +6,7 @@ use DB;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
-use Symfony\Component\Process\Process;
+use Throwable;
 
 class ChineseRegionsCommand extends Command
 {
@@ -45,25 +45,12 @@ class ChineseRegionsCommand extends Command
      */
     public function handle(): int
     {
-        // 生产环境警告
-        if (App::environment() === 'production' && ! $this->option('force')) {
-            $this->warn(
-                '这个命令将下载数据并导入到数据库中，你不应该在生产环境中执行，如果非得执行，请使用 --force 参数'
-            );
-
-            return self::FAILURE;
-        }
-
-        // 确定数据表存在
-        if (! $this->tableExists()) {
-            $this->warn('数据表不存在，请先执行 `php artisan migrate` 迁移数据表');
-
-            return self::FAILURE;
-        }
-        // 确定数据表为空
-        if ($this->tableNotEmpty() && ! $this->option('overwrite')) {
-            $this->warn('这个命令会全量导入数据，当前数据表不为空，请使用 --overwrite 参数覆写（清空后导入）');
-
+        try {
+            $this->ensureNotInProduction();
+            $this->ensureTableExists();
+            $this->ensureTableIsEmpty();
+        } catch (Throwable $e) {
+            $this->warn($e->getMessage());
             return self::FAILURE;
         }
 
@@ -96,6 +83,40 @@ class ChineseRegionsCommand extends Command
         $this->info('导入完成，共导入 '. 1234 .' 条数据');
 
         return self::SUCCESS;
+    }
+
+    /**
+     * 确定数据表为空
+     * @throws \Exception
+     */
+    public function ensureTableIsEmpty()
+    {
+        if ($this->tableNotEmpty() && ! $this->option('overwrite')) {
+            throw new \Exception('这个命令会全量导入数据，当前数据表不为空，请使用 --overwrite 参数覆写（清空后导入）');
+        }
+    }
+
+    /**
+     * 确定数据表存在
+     * @return void
+     * @throws \Exception
+     */
+    public function ensureTableExists(): void
+    {
+        if (! $this->tableExists()) {
+            throw new \Exception('数据表不存在，请先执行 `php artisan migrate` 迁移数据表');
+        }
+    }
+
+    /**
+     * 生产环境警告
+     * @throws \Exception
+     */
+    public function ensureNotInProduction()
+    {
+        if (App::environment() === 'production' && ! $this->option('force')) {
+            throw new \Exception('这个命令将下载数据并导入到数据库中，你不应该在生产环境中执行，如果非得执行，请使用 --force 参数');
+        }
     }
 
     /**
