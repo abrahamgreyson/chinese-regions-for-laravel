@@ -11,17 +11,44 @@ use Symfony\Component\Process\Process;
 
 class ChineseRegionsCommand extends Command
 {
+    /**
+     * Signature of the command.
+     * @var string
+     */
     public $signature = 'chinese-regions:import
                          {--A|via= : 指定下载数据的方式，可选值为 npm、github 和 gitee }
                          {--T|table=chinese_regions : 指定数据表名称，默认为 `chinese_regions` }
                          {--F|force}';
 
+    /**
+     * Description of the command.
+     * @var string
+     */
     public $description = '导入中国行政区划到数据库';
 
+    /**
+     * The GitHub repository url.
+     * @var string
+     */
+    public static string $github = 'https://github.com/modood/Administrative-divisions-of-China.git';
 
-    public static string $github = 'git@github.com:modood/Administrative-divisions-of-China.git';
+    /**
+     * The Gitee repository url.
+     * @var string
+     */
     public static string $gitee = 'https://gitee.com/modood/Administrative-divisions-of-China.git';
 
+    /**
+     * The approach to download data, can be `npm`, `github` or `gitee`.
+     * My not same as the option `via`.
+     * @var string
+     */
+    public string $via = 'npm';
+
+    /**
+     * Execute the console command.
+     * @return int
+     */
     public function handle(): int
     {
         // 生产环境警告
@@ -57,7 +84,7 @@ class ChineseRegionsCommand extends Command
                 $this->error('Git 命令不存在，请先安装 Git，或使用 --via=npm 选项使用 NPM 下载数据');
                 return self::FAILURE;
             }
-            $this->pullData('github');
+            $this->pullData('gitee');
 
 //            $this->error('--via 的可选值只能是 npm 或 git');
 //            return self::FAILURE;
@@ -85,14 +112,18 @@ class ChineseRegionsCommand extends Command
         }
 
         $process = match ($via) {
-            "github" => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress'], cwd: base_path()),
-            "npm" => new Process(['npm', 'i', 'china-division'], cwd: base_path()),
-            default => new Process(['git', 'clone', static::$gitee, 'chinese-regions-data-source', '----progress'], cwd: base_path()),
+            "github" => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress']),
+            "npm" => new Process(['npm', 'i', 'china-division']),
+            default => new Process(['git', 'clone', static::$gitee, 'chinese-regions-data-source', '--progress']),
         };
+
+        // Set some options.
+        $process->setWorkingDirectory(base_path());
         $process->setTimeout(600);
         $process->setIdleTimeout(120);
+
         $process->run(function ($type, $buffer) {
-            $this->line($buffer);
+            echo $buffer;
         });
 
         if (!$process->isSuccessful()) {
