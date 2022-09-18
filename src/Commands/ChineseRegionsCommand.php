@@ -28,27 +28,15 @@ class ChineseRegionsCommand extends Command
      */
     public $description = '导入中国行政区划到数据库';
 
-    /**
-     * The GitHub repository url.
-     *
-     * @var string
-     */
-    public static string $github = 'https://github.com/modood/Administrative-divisions-of-China.git';
+    protected DataSource $dataSource;
+    protected DataSourceRepository $repository;
 
-    /**
-     * The Gitee repository url.
-     *
-     * @var string
-     */
-    public static string $gitee = 'https://gitee.com/modood/Administrative-divisions-of-China.git';
-
-    /**
-     * The approach to download data, can be `npm`, `github` or `gitee`.
-     * My not same as the option `via`.
-     *
-     * @var string
-     */
-    public string $via = 'npm';
+    public function __construct(DataSource $dataSource, DataSourceRepository $repository)
+    {
+        parent::__construct();
+        $this->dataSource = $dataSource;
+        $this->repository = $repository;
+    }
 
     /**
      * Execute the console command.
@@ -83,7 +71,7 @@ class ChineseRegionsCommand extends Command
         if ($via = $this->option('via')) {
             // Check if the npm command executable.
             if ($via === 'npm' && ! $this->npmCommandExists()) {
-                $this->error('NPM 命令不存在，请先安装 NPM，或使用 --via=git 选项直接从 Github 下载数据');
+                $this->error('NPM 命令不存在，请先安装 NPM，或使用 --via=gitee 或 --via=github 选项下载数据');
 
                 return self::FAILURE;
             }
@@ -111,40 +99,6 @@ class ChineseRegionsCommand extends Command
     }
 
     /**
-     * Pull the data source from remote repository.
-     *
-     * @param  string  $via
-     * @return bool
-     */
-    public function pullData(string $via = 'npm'): bool
-    {
-        if (! in_array($via, ['npm', 'github', 'gitee'])) {
-            return false;
-        }
-
-        $process = match ($via) {
-            'github' => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress']),
-            'npm' => new Process(['npm', 'i', 'china-division']),
-            default => new Process(['git', 'clone', static::$gitee, 'chinese-regions-data-source', '--progress']),
-        };
-
-        // Set some options.
-        $process->setWorkingDirectory(base_path());
-        $process->setTimeout(600);
-        $process->setIdleTimeout(120);
-
-        $process->run(function ($type, $buffer) {
-            echo $buffer;
-        });
-
-        if (! $process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        return true;
-    }
-
-    /**
      * Check if the database table exists.
      *
      * @return bool
@@ -152,40 +106,6 @@ class ChineseRegionsCommand extends Command
     public function tableExists(): bool
     {
         return DB::getSchemaBuilder()->hasTable($this->option('table'));
-    }
-
-    /**
-     * Check if NPM command exists.
-     */
-    public function npmCommandExists(): bool
-    {
-        return $this->commandExecutable('npm');
-    }
-
-    /**
-     * Check if GIT command exists.
-     */
-    public function gitCommandExists(): bool
-    {
-        return $this->commandExecutable('git');
-    }
-
-    /**
-     * Check if the command executable.
-     */
-    public function commandExecutable(string $command): bool
-    {
-        $test = $this->onWindows() ? 'where' : 'which';
-
-        return is_executable(trim((string) `$test $command`));
-    }
-
-    /**
-     * @return bool
-     */
-    public function onWindows(): bool
-    {
-        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 
     /**
