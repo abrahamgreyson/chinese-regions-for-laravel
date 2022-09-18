@@ -6,7 +6,6 @@ use DB;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class ChineseRegionsCommand extends Command
@@ -29,6 +28,7 @@ class ChineseRegionsCommand extends Command
     public $description = '导入中国行政区划到数据库';
 
     protected DataSource $dataSource;
+
     protected DataSourceRepository $repository;
 
     public function __construct(DataSource $dataSource, DataSourceRepository $repository)

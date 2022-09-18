@@ -9,6 +9,7 @@ class DataSource
 {
     /**
      * The approach to download the data source.
+     *
      * @var string
      */
     public string $via;
@@ -20,16 +21,17 @@ class DataSource
 
     /**
      * The GitHub repository url.
+     *
      * @var string
      */
     public static string $github = 'https://github.com/modood/Administrative-divisions-of-China.git';
 
     /**
      * The Gitee repository url.
+     *
      * @var string
      */
     public static string $gitee = 'https://gitee.com/modood/Administrative-divisions-of-China.git';
-
 
     public function __construct($via = 'npm')
     {
@@ -38,12 +40,14 @@ class DataSource
 
     /**
      * THe setter of $via.
-     * @param string $via
+     *
+     * @param  string  $via
+     *
      * @throws \Exception
      */
     public function setVia(string $via): void
     {
-        if (!in_array($via, ['npm', 'github', 'gitee'])) {
+        if (! in_array($via, ['npm', 'github', 'gitee'])) {
             throw new \Exception('Via must be one of npm, github, gitee');
         }
 
@@ -52,6 +56,7 @@ class DataSource
 
     /**
      * Dispatch the download process.
+     *
      * @return string
      */
     public function dispatch()
@@ -60,15 +65,17 @@ class DataSource
 
     /**
      * Pull the data source from remote repository.
-     * @param string $via
+     *
+     * @param  string  $via
      * @return bool
+     *
      * @throws ProcessFailedException
      */
     public function download(string $via = 'npm'): bool
     {
         $process = match ($via) {
-            "github" => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress']),
-            "npm" => new Process(['npm', 'i', static::$npmPackageName, '--no-save']),
+            'github' => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress']),
+            'npm' => new Process(['npm', 'i', static::$npmPackageName, '--no-save']),
             default => new Process(['git', 'clone', static::$gitee, 'chinese-regions-data-source', '--progress']),
         };
 
@@ -80,7 +87,7 @@ class DataSource
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
@@ -89,13 +96,14 @@ class DataSource
 
     /**
      * Remove the data source folder from local.
-     * @param string $via
+     *
+     * @param  string  $via
      */
     private function removeDataFromDisk(string $via = 'npm'): void
     {
         $via = match ($via) {
-            "github" => base_path('chinese-regions-data-source'),
-            "npm" => base_path('node_modules/china-division'),
+            'github' => base_path('chinese-regions-data-source'),
+            'npm' => base_path('node_modules/china-division'),
             default => base_path('chinese-regions-data-source'),
         };
 
