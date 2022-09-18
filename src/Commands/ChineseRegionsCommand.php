@@ -13,6 +13,7 @@ class ChineseRegionsCommand extends Command
 {
     /**
      * Signature of the command.
+     *
      * @var string
      */
     public $signature = 'chinese-regions:import
@@ -22,18 +23,21 @@ class ChineseRegionsCommand extends Command
 
     /**
      * Description of the command.
+     *
      * @var string
      */
     public $description = '导入中国行政区划到数据库';
 
     /**
      * The GitHub repository url.
+     *
      * @var string
      */
     public static string $github = 'https://github.com/modood/Administrative-divisions-of-China.git';
 
     /**
      * The Gitee repository url.
+     *
      * @var string
      */
     public static string $gitee = 'https://gitee.com/modood/Administrative-divisions-of-China.git';
@@ -41,12 +45,14 @@ class ChineseRegionsCommand extends Command
     /**
      * The approach to download data, can be `npm`, `github` or `gitee`.
      * My not same as the option `via`.
+     *
      * @var string
      */
     public string $via = 'npm';
 
     /**
      * Execute the console command.
+     *
      * @return int
      */
     public function handle(): int
@@ -83,7 +89,7 @@ class ChineseRegionsCommand extends Command
             }
 
             // Check if the git command executable.
-            if (!in_array($via, ['github', 'gitee']) && !$this->gitCommandExists()) {
+            if (! in_array($via, ['github', 'gitee']) && ! $this->gitCommandExists()) {
                 $this->error('Git 命令不存在，请先安装 Git，或使用 --via=npm 选项使用 NPM 下载数据');
 
                 return self::FAILURE;
@@ -106,18 +112,19 @@ class ChineseRegionsCommand extends Command
 
     /**
      * Pull the data source from remote repository.
-     * @param string $via
+     *
+     * @param  string  $via
      * @return bool
      */
     public function pullData(string $via = 'npm'): bool
     {
-        if (!in_array($via, ['npm', 'github', 'gitee'])) {
+        if (! in_array($via, ['npm', 'github', 'gitee'])) {
             return false;
         }
 
         $process = match ($via) {
-            "github" => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress']),
-            "npm" => new Process(['npm', 'i', 'china-division']),
+            'github' => new Process(['git', 'clone', static::$github, 'chinese-regions-data-source', '--progress']),
+            'npm' => new Process(['npm', 'i', 'china-division']),
             default => new Process(['git', 'clone', static::$gitee, 'chinese-regions-data-source', '--progress']),
         };
 
@@ -130,7 +137,7 @@ class ChineseRegionsCommand extends Command
             echo $buffer;
         });
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             throw new ProcessFailedException($process);
         }
 
