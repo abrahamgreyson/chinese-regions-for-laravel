@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": "^8",
+        "ext-pdo_sqlite": "*",
         "spatie/laravel-package-tools": "^1.13",
         "illuminate/contracts": "^8|^9",
         "symfony/process": "^6.0"
@@ -65,6 +66,9 @@
                 "Abe\\ChineseRegions\\ChineseRegionsServiceProvider"
             ]
         }
+    },
+    "suggest": {
+        "ext-pdo_sqlite": "使用该扩展解析来自数据源的 SQLite 数据库"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
