@@ -2,9 +2,6 @@
 
 namespace Abe\ChineseRegions\Commands;
 
-use DB;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 use Throwable;
 
 class ChineseRegionsCommand extends AbstractCommand
@@ -39,6 +36,7 @@ class ChineseRegionsCommand extends AbstractCommand
             $this->ensureTableIsEmpty();
         } catch (Throwable $e) {
             $this->warn($e->getMessage());
+
             return self::FAILURE;
         }
 
@@ -75,6 +73,7 @@ class ChineseRegionsCommand extends AbstractCommand
 
     /**
      * 确定数据表为空
+     *
      * @throws \Exception
      */
     public function ensureTableIsEmpty()

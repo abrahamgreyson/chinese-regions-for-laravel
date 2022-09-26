@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\App;
  */
 abstract class AbstractCommand extends Command
 {
-
     protected DataSource $dataSource;
 
     protected DataSourceRepository $repository;
@@ -27,7 +26,9 @@ abstract class AbstractCommand extends Command
 
     /**
      * 确定数据表存在
+     *
      * @return void
+     *
      * @throws \Exception
      */
     public function ensureTableExists(): void
@@ -39,6 +40,7 @@ abstract class AbstractCommand extends Command
 
     /**
      * 生产环境警告
+     *
      * @throws \Exception
      */
     public function ensureNotInProduction()
