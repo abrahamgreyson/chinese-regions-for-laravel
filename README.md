@@ -1,4 +1,4 @@
-# 中国行政区划Wip
+# 中国行政区划
 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/abe/chinese-regions-for-laravel.svg?style=flat-square)](https://packagist.org/packages/abe/chinese-regions-for-laravel)
