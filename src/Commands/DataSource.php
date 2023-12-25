@@ -9,8 +9,6 @@ class DataSource
 {
     /**
      * The approach to download the data source.
-     *
-     * @var string
      */
     public string $via;
 
@@ -21,15 +19,11 @@ class DataSource
 
     /**
      * The GitHub repository url.
-     *
-     * @var string
      */
     public static string $github = 'https://github.com/modood/Administrative-divisions-of-China.git';
 
     /**
      * The Gitee repository url.
-     *
-     * @var string
      */
     public static string $gitee = 'https://gitee.com/modood/Administrative-divisions-of-China.git';
 
@@ -41,7 +35,6 @@ class DataSource
     /**
      * THe setter of $via.
      *
-     * @param  string  $via
      *
      * @throws \Exception
      */
@@ -66,8 +59,6 @@ class DataSource
     /**
      * Pull the data source from remote repository.
      *
-     * @param  string  $via
-     * @return bool
      *
      * @throws ProcessFailedException
      */
@@ -96,8 +87,6 @@ class DataSource
 
     /**
      * Remove the data source folder from local.
-     *
-     * @param  string  $via
      */
     private function removeDataFromDisk(string $via = 'npm'): void
     {
@@ -136,9 +125,6 @@ class DataSource
         return is_executable(trim((string) `$test $command`));
     }
 
-    /**
-     * @return bool
-     */
     public function onWindows(): bool
     {
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';

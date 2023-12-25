@@ -27,7 +27,6 @@ abstract class AbstractCommand extends Command
     /**
      * 确定数据表存在
      *
-     * @return void
      *
      * @throws \Exception
      */
@@ -52,8 +51,6 @@ abstract class AbstractCommand extends Command
 
     /**
      * Check if the database table exists.
-     *
-     * @return bool
      */
     public function tableExists(): bool
     {
@@ -62,8 +59,6 @@ abstract class AbstractCommand extends Command
 
     /**
      * Check if the database table is not empty.
-     *
-     * @return bool
      */
     public function tableNotEmpty(): bool
     {

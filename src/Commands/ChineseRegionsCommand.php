@@ -25,8 +25,6 @@ class ChineseRegionsCommand extends AbstractCommand
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -57,8 +55,8 @@ class ChineseRegionsCommand extends AbstractCommand
             }
             $this->pullData('gitee');
 
-//            $this->error('--via 的可选值只能是 npm 或 git');
-//            return self::FAILURE;
+        //            $this->error('--via 的可选值只能是 npm 或 git');
+        //            return self::FAILURE;
         } else {
             $via = $this->npmCommandExists() ? 'npm' : 'git';
 
