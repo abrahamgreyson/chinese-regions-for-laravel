@@ -4,14 +4,15 @@
     "keywords": [
         "abe",
         "laravel",
-        "chinese regions"
+        "chinese regions",
+        "中国行政区划"
     ],
     "homepage": "https://github.com/abe/chinese-regions-for-laravel",
     "license": "MIT",
     "authors": [
         {
             "name": "abraham greyson",
-            "email": "82011220@qq.com"
+            "email": "abrahamgreyson@gmail.com"
         }
     ],
     "require": {
@@ -35,13 +36,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Abe\\ChineseRegions\\": "src",
-            "Abe\\ChineseRegions\\Database\\Factories\\": "database/factories"
+            "Abe\\LaravelChineseRegions\\": "src",
+            "Abe\\LaravelRegions\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Abe\\ChineseRegions\\Tests\\": "tests"
+            "Abe\\LaravelChineseRegions\\Tests\\": "tests"
         }
     },
     "scripts": {
