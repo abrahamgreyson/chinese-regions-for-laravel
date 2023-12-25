@@ -2,13 +2,24 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "install": "napa"
+        "install": "napa",
+        "postinstall": "copy-files-from-to"
     },
     "devDependencies": {
         "china-division": "^2.7.0",
+        "copy-files-from-to": "^3.9.1",
         "napa": "^3.0.0"
     },
     "napa": {
         "adyliu/china_area": "https://github.com/adyliu/china_area"
+    },
+    "copyFiles": [
+        {
+            "from": "./node_modules/china-division/dist/data.sqlite",
+            "to": "./"
+        }
+    ],
+    "copyFilesSettings": {
+        "whenFileExists": "overwrite"
     }
 }
