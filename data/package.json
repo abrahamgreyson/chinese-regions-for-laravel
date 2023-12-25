@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "install": "napa"
+    },
+    "devDependencies": {
+        "china-division": "^2.7.0",
+        "napa": "^3.0.0"
+    },
+    "napa": {
+        "adyliu/china_area": "https://github.com/adyliu/china_area"
+    }
+}
