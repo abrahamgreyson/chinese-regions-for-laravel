@@ -16,10 +16,11 @@
         }
     ],
     "require": {
-        "php": "^8",
+        "php": "^8.0",
         "ext-pdo_sqlite": "*",
         "spatie/laravel-package-tools": "^1.13",
         "illuminate/contracts": "^8|^9",
+        "illuminate/support": "^8|^9",
         "symfony/process": "^6.0"
     },
     "require-dev": {
@@ -36,13 +37,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Abe\\LaravelChineseRegions\\": "src",
-            "Abe\\LaravelRegions\\Database\\Factories\\": "database/factories"
+            "Abe\\ChineseRegionsForLaravel\\": "src",
+            "Abe\\ChineseRegionsForLaravel\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Abe\\LaravelChineseRegions\\Tests\\": "tests"
+            "Abe\\ChineseRegionsForLaravel\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -64,7 +65,7 @@
         },
         "laravel": {
             "providers": [
-                "Abe\\ChineseRegions\\ChineseRegionsServiceProvider"
+                "Abe\\ChineseRegionsForLaravel\\ChineseRegionsServiceProvider"
             ]
         }
     },

@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe\ChineseRegions\Commands;
+namespace Abe\ChineseRegionsForLaravel\Commands;
 
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;

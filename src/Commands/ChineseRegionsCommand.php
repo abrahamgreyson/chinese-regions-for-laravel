@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe\ChineseRegions\Commands;
+namespace Abe\ChineseRegionsForLaravel\Commands;
 
 use Throwable;
 

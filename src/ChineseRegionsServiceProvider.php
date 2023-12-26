@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe\ChineseRegions;
+namespace Abe\ChineseRegionsForLaravel;
 
 use Abe\ChineseRegions\Commands\ChineseRegionsCommand;
 use Spatie\LaravelPackageTools\Package;

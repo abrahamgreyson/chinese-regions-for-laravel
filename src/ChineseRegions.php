@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe\ChineseRegions;
+namespace Abe\ChineseRegionsForLaravel;
 
 class ChineseRegions
 {
