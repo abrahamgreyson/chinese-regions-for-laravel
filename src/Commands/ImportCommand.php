@@ -37,7 +37,6 @@ class ImportCommand extends AbstractCommand
             return self::FAILURE;
         }
 
-
         return self::SUCCESS;
     }
 }

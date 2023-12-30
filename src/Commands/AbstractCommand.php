@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\App;
  */
 abstract class AbstractCommand extends Command
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -51,7 +50,7 @@ abstract class AbstractCommand extends Command
      */
     public function ensureTableIsEmpty(): void
     {
-        if ($this->tableNotEmpty() && !$this->option('overwrite')) {
+        if ($this->tableNotEmpty() && ! $this->option('overwrite')) {
             throw CommandException::tableNotEmpty();
         }
     }
