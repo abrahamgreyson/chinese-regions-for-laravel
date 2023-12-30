@@ -2,7 +2,7 @@
 
 namespace Abe\ChineseRegionsForLaravel;
 
-use Abe\ChineseRegions\Commands\ChineseRegionsCommand;
+use Abe\ChineseRegionsForLaravel\Commands\ChineseRegionsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,6 +18,7 @@ class ChineseRegionsServiceProvider extends PackageServiceProvider
         $package
             ->name('chinese-regions-for-laravel')
             ->hasMigration('create_chinese_regions_table')
+            ->runsMigrations()
             ->hasCommand(ChineseRegionsCommand::class);
     }
 }
