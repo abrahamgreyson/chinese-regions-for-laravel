@@ -6,15 +6,32 @@ use DB;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 abstract class AbstractCommand extends Command
 {
+    /**
+     * @var ProgressBar
+     */
+    protected ProgressBar $bar;
+
+    /**
+     * @var ?string
+     */
+    protected ?string $tableName = null;
+
     public function __construct()
     {
         parent::__construct();
     }
 
-    abstract public function handle();
+    public function handle(): int
+    {
+        $this->init();
+        return 0;
+    }
+
+    abstract public function init();
 
     /**
      * 确定数据表存在

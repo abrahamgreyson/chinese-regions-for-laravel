@@ -16,11 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('code')->comment('行政区划代码');
 
             // 上级省、自治区、直辖市、特别行政区
-            $table->unsignedTinyInteger('province_code')->nullable()->comment('省级区划代码（上级）');
+            $table->unsignedBigInteger('province_code')->nullable()->comment('省级区划代码（上级）');
             // 上级地级市、自治州、盟、地区
-            $table->unsignedSmallInteger('city_code')->nullable()->comment('地级行政区划代码（上级）');
+            $table->unsignedBigInteger('city_code')->nullable()->comment('地级行政区划代码（上级）');
             // 上级市辖区、县级市、县、自治县、旗、自治旗、特区、林区
-            $table->unsignedTinyInteger('area_code')->nullable()->comment('县级行政区划代码（上级）');
+            $table->unsignedBigInteger('area_code')->nullable()->comment('县级行政区划代码（上级）');
             // 上级街道、镇、乡、民族乡、苏木、民族苏木、县辖区
             $table->unsignedBigInteger('street_code')->nullable()->comment('乡级行政区划代码（上级）');
 
