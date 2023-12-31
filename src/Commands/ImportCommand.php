@@ -52,6 +52,7 @@ class ImportCommand extends AbstractCommand
     {
         $sqlite = $this->getSqliteConnection();
         $count = $this->countingAll($sqlite);
+        $this->truncateTable();
 
         $this->bar = $this->output->createProgressBar($count);
         // 自定义格式
@@ -78,7 +79,7 @@ class ImportCommand extends AbstractCommand
     }
 
     /**
-     * 插入省、直辖市、自治区
+     * Province level
      * @param Connection $sqlite
      * @return void
      */
@@ -102,7 +103,7 @@ class ImportCommand extends AbstractCommand
     }
 
     /**
-     * 插入地级市
+     * City level
      * @param Connection $sqlite
      * @return void
      */
@@ -127,7 +128,7 @@ class ImportCommand extends AbstractCommand
     }
 
     /**
-     * 插入县级市、区
+     * Area level
      * @param Connection $sqlite
      * @return void
      */
@@ -153,7 +154,7 @@ class ImportCommand extends AbstractCommand
     }
 
     /**
-     * 插入乡镇、街道
+     * Town, street level
      * @param Connection $sqlite
      * @return void
      */
@@ -180,7 +181,7 @@ class ImportCommand extends AbstractCommand
     }
 
     /**
-     * 插入村，社区
+     * Community, village level
      * @param Connection $sqlite
      * @return void
      */
@@ -197,7 +198,7 @@ class ImportCommand extends AbstractCommand
                     'province_code' => $value->provinceCode,
                     'city_code' => $value->cityCode,
                     'area_code' => $value->areaCode,
-                    'block_code' => $value->streetCode,
+                    'street_code' => $value->streetCode,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ];
@@ -208,11 +209,11 @@ class ImportCommand extends AbstractCommand
     }
 
     /**
-     * 统计资源库的所有记录，用于显示进度条
+     * Counting all data from data source.
      * @param Connection $sqlite
      * @return int
      */
-    private function countingAll(Connection $sqlite)
+    private function countingAll(Connection $sqlite): int
     {
         $countProvinces = $sqlite->table('province')->count('code');
         $countCities = $sqlite->table('city')->count('code');
@@ -224,7 +225,7 @@ class ImportCommand extends AbstractCommand
     }
 
     /**
-     * 外部数据的数据库连接
+     * DB connection for data source.
      * @return Connection
      */
     public function getSqliteConnection(): Connection
@@ -238,8 +239,21 @@ class ImportCommand extends AbstractCommand
         return DB::connection('sqlite');
     }
 
+    /**
+     * Some stuff before handle.
+     * @return void
+     */
     public function init(): void
     {
         $this->tableName = $this->option('table');
+    }
+
+    /**
+     * Truncate the table.
+     * @return void
+     */
+    private function truncateTable():void
+    {
+        DB::table($this->tableName)->truncate();
     }
 }
