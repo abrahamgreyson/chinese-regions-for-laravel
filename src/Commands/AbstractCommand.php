@@ -2,13 +2,11 @@
 
 namespace Abe\ChineseRegionsForLaravel\Commands;
 
+use DB;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
-/**
- * 共用的方法
- */
 abstract class AbstractCommand extends Command
 {
     public function __construct()
@@ -22,7 +20,7 @@ abstract class AbstractCommand extends Command
      * 确定数据表存在
      *
      *
-     * @throws \Exception
+     * @throws CommandException
      */
     public function ensureTableExists(): void
     {
@@ -34,7 +32,7 @@ abstract class AbstractCommand extends Command
     /**
      * 生产环境警告
      *
-     * @throws \Exception
+     * @throws CommandException
      */
     public function ensureNotInProduction(): void
     {
@@ -46,7 +44,7 @@ abstract class AbstractCommand extends Command
     /**
      * 确定数据表为空
      *
-     * @throws \Exception
+     * @throws CommandException
      */
     public function ensureTableIsEmpty(): void
     {
@@ -60,7 +58,7 @@ abstract class AbstractCommand extends Command
      */
     public function tableExists(): bool
     {
-        return \DB::getSchemaBuilder()->hasTable($this->option('table'));
+        return DB::getSchemaBuilder()->hasTable($this->option('table'));
     }
 
     /**

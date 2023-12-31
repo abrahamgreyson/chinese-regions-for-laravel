@@ -70,7 +70,7 @@
         }
     },
     "suggest": {
-        "ext-pdo_sqlite": "使用该扩展解析来自数据源的 SQLite 数据库"
+        "ext-pdo_sqlite": "使用该扩展解析来自数据源的 SQLite 数据库,只需要在导入数据时开启一次"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
