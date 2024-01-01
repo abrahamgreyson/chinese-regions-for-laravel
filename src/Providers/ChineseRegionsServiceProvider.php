@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe\ChineseRegionsForLaravel;
+namespace Abe\ChineseRegionsForLaravel\Providers;
 
 use Abe\ChineseRegionsForLaravel\Commands\ImportCommand;
 use Spatie\LaravelPackageTools\Package;
