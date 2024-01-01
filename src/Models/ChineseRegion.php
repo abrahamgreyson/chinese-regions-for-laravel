@@ -8,13 +8,72 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ChineseRegion extends Eloquent
 {
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(ChineseRegion::class, 'parent_id');
-    }
 
     public function children(): HasMany
     {
-        return $this->hasMany(ChineseRegion::class, 'parent_id');
+        $foreignKey = match($this->level) {
+            1 => 'province_code',
+            2 => 'city_code',
+            3 => 'area_code',
+            4 => 'street_code',
+            default => null
+        };
+
+        return $this->hasMany(self::class, $foreignKey, 'code')
+            ->where('level', $this->level + 1);
+    }
+
+    public function parent(): BelongsTo
+    {
+        $foreignKey = match($this->level) {
+            2 => 'province_code',
+            3 => 'city_code',
+            4 => 'area_code',
+            5 => 'street_code',
+            default => null
+        };
+        return $this->belongsTo(ChineseRegion::class, $foreignKey, 'code');
+    }
+
+    /**
+     * 城市列表
+     * @return HasMany
+     */
+    public function cities(): HasMany
+    {
+        return $this->hasMany(self::class, 'province_code', 'code')
+            ->where('level', 2)
+            ->whereNull(['city_code', 'area_code', 'street_code']);
+    }
+
+    /**
+     * 区列表
+     * @return HasMany
+     */
+    public function areas(): HasMany
+    {
+        return $this->hasMany(self::class, 'city_code', 'code')
+            ->where('level', 3)
+            ->whereNull(['area_code', 'street_code']);
+    }
+
+    /**
+     * 区列表
+     * @return HasMany
+     */
+    public function streets(): HasMany
+    {
+        return $this->hasMany(self::class, 'area_code', 'code')
+            ->where('level', 4)
+            ->whereNull(['street_code']);
+    }
+
+    /**
+     * 区列表
+     * @return HasMany
+     */
+    public function villages(): HasMany
+    {
+        return $this->hasMany(self::class, 'street_code', 'code')->where('level', 5);
     }
 }

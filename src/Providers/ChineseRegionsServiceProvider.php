@@ -3,6 +3,7 @@
 namespace Abe\ChineseRegionsForLaravel\Providers;
 
 use Abe\ChineseRegionsForLaravel\Commands\ImportCommand;
+use Abe\ChineseRegionsForLaravel\Models\ChineseRegion;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
