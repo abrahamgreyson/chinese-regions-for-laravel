@@ -80,8 +80,6 @@ class ImportCommand extends AbstractCommand
 
     /**
      * Province level
-     * @param Connection $sqlite
-     * @return void
      */
     public function insertProvinces(Connection $sqlite): void
     {
@@ -94,7 +92,7 @@ class ImportCommand extends AbstractCommand
                     'name' => $value->name,
                     'level' => 1,
                     'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'updated_at' => Carbon::now(),
                 ];
             });
             $this->bar->advance($provinces->count());
@@ -104,8 +102,6 @@ class ImportCommand extends AbstractCommand
 
     /**
      * City level
-     * @param Connection $sqlite
-     * @return void
      */
     public function insertCities(Connection $sqlite): void
     {
@@ -119,7 +115,7 @@ class ImportCommand extends AbstractCommand
                     'level' => 2,
                     'province_code' => $value->provinceCode,
                     'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'updated_at' => Carbon::now(),
                 ];
             });
             $this->bar->advance($cities->count());
@@ -129,8 +125,6 @@ class ImportCommand extends AbstractCommand
 
     /**
      * Area level
-     * @param Connection $sqlite
-     * @return void
      */
     public function insertAreas(Connection $sqlite): void
     {
@@ -145,7 +139,7 @@ class ImportCommand extends AbstractCommand
                     'province_code' => $value->provinceCode,
                     'city_code' => $value->cityCode,
                     'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'updated_at' => Carbon::now(),
                 ];
             });
             $this->bar->advance($areas->count());
@@ -155,8 +149,6 @@ class ImportCommand extends AbstractCommand
 
     /**
      * Town, street level
-     * @param Connection $sqlite
-     * @return void
      */
     public function insertBlocks(Connection $sqlite): void
     {
@@ -172,7 +164,7 @@ class ImportCommand extends AbstractCommand
                     'city_code' => $value->cityCode,
                     'area_code' => $value->areaCode,
                     'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'updated_at' => Carbon::now(),
                 ];
             });
             $this->bar->advance($blocks->count());
@@ -182,8 +174,6 @@ class ImportCommand extends AbstractCommand
 
     /**
      * Community, village level
-     * @param Connection $sqlite
-     * @return void
      */
     public function insertCommunities(Connection $sqlite): void
     {
@@ -200,7 +190,7 @@ class ImportCommand extends AbstractCommand
                     'area_code' => $value->areaCode,
                     'street_code' => $value->streetCode,
                     'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
+                    'updated_at' => Carbon::now(),
                 ];
             });
             $this->bar->advance($communities->count());
@@ -210,8 +200,6 @@ class ImportCommand extends AbstractCommand
 
     /**
      * Counting all data from data source.
-     * @param Connection $sqlite
-     * @return int
      */
     private function countingAll(Connection $sqlite): int
     {
@@ -226,11 +214,10 @@ class ImportCommand extends AbstractCommand
 
     /**
      * DB connection for data source.
-     * @return Connection
      */
     public function getSqliteConnection(): Connection
     {
-        $sqlitePath = "/vendor/abe/chinese-regions-for-laravel/data/data.sqlite";
+        $sqlitePath = '/vendor/abe/chinese-regions-for-laravel/data/data.sqlite';
         config()->set('database.connections.sqlite', [
             'driver' => 'sqlite',
             'database' => base_path($sqlitePath),
@@ -241,7 +228,6 @@ class ImportCommand extends AbstractCommand
 
     /**
      * Some stuff before handle.
-     * @return void
      */
     public function init(): void
     {
@@ -250,9 +236,8 @@ class ImportCommand extends AbstractCommand
 
     /**
      * Truncate the table.
-     * @return void
      */
-    private function truncateTable():void
+    private function truncateTable(): void
     {
         DB::table($this->tableName)->truncate();
     }

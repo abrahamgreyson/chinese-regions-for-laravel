@@ -10,9 +10,6 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 abstract class AbstractCommand extends Command
 {
-    /**
-     * @var ProgressBar
-     */
     protected ProgressBar $bar;
 
     /**
@@ -28,6 +25,7 @@ abstract class AbstractCommand extends Command
     public function handle(): int
     {
         $this->init();
+
         return 0;
     }
 

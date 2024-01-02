@@ -11,7 +11,7 @@ class ChineseRegion extends Eloquent
 {
     public function children(): HasMany
     {
-        $foreignKey = match($this->level) {
+        $foreignKey = match ($this->level) {
             1 => 'province_code',
             2 => 'city_code',
             3 => 'area_code',
@@ -25,31 +25,31 @@ class ChineseRegion extends Eloquent
 
     public function parent(): BelongsTo
     {
-        $foreignKey = match($this->level) {
+        $foreignKey = match ($this->level) {
             2 => 'province_code',
             3 => 'city_code',
             4 => 'area_code',
             5 => 'street_code',
             default => null
         };
+
         return $this->belongsTo(ChineseRegion::class, $foreignKey, 'code');
     }
 
-
     /**
      * 省份
+     *
      * @return mixed
      */
     public function provinces(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->where('level', 1)->get()
+            get: fn () => $this->where('level', 1)->get()
         );
     }
 
     /**
      * 城市列表
-     * @return HasMany
      */
     public function cities(): HasMany
     {
@@ -60,7 +60,6 @@ class ChineseRegion extends Eloquent
 
     /**
      * 区列表
-     * @return HasMany
      */
     public function areas(): HasMany
     {
@@ -71,7 +70,6 @@ class ChineseRegion extends Eloquent
 
     /**
      * 区列表
-     * @return HasMany
      */
     public function streets(): HasMany
     {
@@ -82,7 +80,6 @@ class ChineseRegion extends Eloquent
 
     /**
      * 区列表
-     * @return HasMany
      */
     public function villages(): HasMany
     {

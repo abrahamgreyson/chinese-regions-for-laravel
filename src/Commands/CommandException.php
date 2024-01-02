@@ -11,11 +11,11 @@ class CommandException extends \Exception
 
     public static function isRunInProduction(): static
     {
-        return new static("这个命令会全量导入数据，你不应该在生产环境中执行，如果非得执行，请使用 --force 参数");
+        return new static('这个命令会全量导入数据，你不应该在生产环境中执行，如果非得执行，请使用 --force 参数');
     }
 
     public static function tableNotEmpty(): static
     {
-        return new static("这个命令会全量导入数据，当前数据表不为空，请使用 --overwrite 参数覆写（清空后导入）");
+        return new static('这个命令会全量导入数据，当前数据表不为空，请使用 --overwrite 参数覆写（清空后导入）');
     }
 }
