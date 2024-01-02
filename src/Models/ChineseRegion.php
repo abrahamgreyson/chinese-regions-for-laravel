@@ -2,13 +2,13 @@
 
 namespace Abe\ChineseRegionsForLaravel\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ChineseRegion extends Eloquent
 {
-
     public function children(): HasMany
     {
         $foreignKey = match($this->level) {
@@ -33,6 +33,18 @@ class ChineseRegion extends Eloquent
             default => null
         };
         return $this->belongsTo(ChineseRegion::class, $foreignKey, 'code');
+    }
+
+
+    /**
+     * 省份
+     * @return mixed
+     */
+    public function provinces(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->where('level', 1)->get()
+        );
     }
 
     /**

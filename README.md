@@ -6,15 +6,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/abe/chinese-regions-for-laravel/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/abe/chinese-regions-for-laravel/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/abe/chinese-regions-for-laravel.svg?style=flat-square)](https://packagist.org/packages/abe/chinese-regions-for-laravel)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/chinese-regions-for-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/chinese-regions-for-laravel)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Laravel 中国行政区划, 包含了五级行政区划数据,数据源为国家统计局,数据更新时间为 2023年6月10日.
 
 ## Installation
 
@@ -24,37 +16,33 @@ You can install the package via composer:
 composer require abe/chinese-regions-for-laravel
 ```
 
-You can publish and run the migrations with:
+安装后,运行数据库迁移命令,以创建数据表
 
 ```bash
-php artisan vendor:publish --tag="chinese-regions-for-laravel-migrations"
 php artisan migrate
 ```
 
-You can publish the config file with:
+数据表创建完成后,执行导入命令,导入数据
 
 ```bash
-php artisan vendor:publish --tag="chinese-regions-for-laravel-config"
+php artisan chinese-regions:import
 ```
 
-This is the contents of the published config file:
+## 数据库结构
+
+## 使用
+
+我附带了一个简单的实体类, 你也可以自己实现
 
 ```php
-return [
-];
-```
+$chineseRegion = new Abe\ChineseRegionsForLaravel\Models\ChineseRegion();
+/** @var \Illuminate\Database\Eloquent\Collection $provinces */
+$provinces = $chineseRegion->getProvinces(); // 获取所有省份
+/** @var \Illuminate\Database\Eloquent\Collection $cities */
+$cities = $provinces->first()->cities; // 获取第一个省份的所有城市
+// or 
+$cities = $chineseRegion->getCities($provinces->first()); // 获取省份ID为1的所有城市
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="chinese-regions-for-laravel-views"
-```
-
-## Usage
-
-```php
-$chineseRegionsForLaravel = new ChineseRegionsForLaravel\ChineseRegionsForLaravel();
-echo $chineseRegionsForLaravel->echoPhrase('Hello, ChineseRegionsForLaravel!');
 ```
 
 ## Testing
