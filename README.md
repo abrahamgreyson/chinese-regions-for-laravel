@@ -46,7 +46,7 @@ php artisan chinese-regions:import
 我附带了一个简单的实体类, 你也可以自己实现
 
 ```php
-$chineseRegion = new Abe\ChineseRegionsForLaravel\Models\ChineseRegion();
+$chineseRegion = new \Abe\ChineseRegionsForLaravel\ChineseRegion();
 /** @var \Illuminate\Database\Eloquent\Collection $provinces */
 $provinces = $chineseRegion->provinces; // 所有省份
 /** @var \Illuminate\Database\Eloquent\Collection $cities */

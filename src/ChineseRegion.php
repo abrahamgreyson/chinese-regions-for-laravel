@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe\ChineseRegionsForLaravel\Models;
+namespace Abe\ChineseRegionsForLaravel;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model as Eloquent;
