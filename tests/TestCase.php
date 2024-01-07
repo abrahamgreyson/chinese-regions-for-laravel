@@ -1,36 +1,39 @@
 <?php
 
-namespace Abe\ChineseRegions\Tests;
+namespace Abe\ChineseRegionsForLaravel\Tests;
 
-use Abe\ChineseRegions\ChineseRegionsServiceProvider;
+use Abe\ChineseRegionsForLaravel\Providers\ChineseRegionsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use JetBrains\PhpStorm\NoReturn;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Abe\ChineseRegions\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             ChineseRegionsServiceProvider::class,
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    #[NoReturn]
+    public function getEnvironmentSetUp($app): void
     {
         config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_chinese-regions-for-laravel_table.php.stub';
+        config()->set('database.connections.testing', [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+        ]);
+        dd(config()->get('database'));
+        $migration = include __DIR__.'/../database/migrations/create_chinese_regions_table.php';
         $migration->up();
-        */
     }
 }

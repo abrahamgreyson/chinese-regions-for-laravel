@@ -1,5 +1,5 @@
 <?php
 
-use Abe\ChineseRegions\Tests\TestCase;
+use Abe\ChineseRegionsForLaravel\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
