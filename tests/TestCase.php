@@ -3,7 +3,6 @@
 namespace Abe\ChineseRegionsForLaravel\Tests;
 
 use Abe\ChineseRegionsForLaravel\Providers\ChineseRegionsServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use JetBrains\PhpStorm\NoReturn;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -29,7 +28,7 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
         config()->set('database.connections.testing', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
         ]);
         dd(config()->get('database'));
