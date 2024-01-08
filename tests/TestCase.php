@@ -24,14 +24,14 @@ class TestCase extends Orchestra
     }
 
     #[NoReturn]
-    public function getEnvironmentSetUp($app): void
+    public function defineEnvironment($app): void
     {
         config()->set('database.default', 'testing');
         config()->set('database.connections.testing', [
             'driver' => 'sqlite',
             'database' => ':memory:',
+            'prefix' => '',
         ]);
-        dd(config()->get('database'));
         $migration = include __DIR__.'/../database/migrations/create_chinese_regions_table.php';
         $migration->up();
     }
