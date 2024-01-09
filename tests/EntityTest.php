@@ -65,7 +65,7 @@ test('can get villages', function () {
     expect($villages)->toHaveCount(2);
 });
 
-test('can get children', function() {
+test('can get children', function () {
     // todo
     $street = ChineseRegion::where('code', 230382101)->first();
     dd($street->children);
@@ -75,4 +75,3 @@ test('village does not have children', function () {
     $village = ChineseRegion::where('code', 230382101205)->first();
     dd($village->children);
 });
-
