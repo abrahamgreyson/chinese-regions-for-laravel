@@ -46,3 +46,20 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/pest --ci
+
+        # coverage
+      - name: Make code coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: output/coverage.svg
+          report: test-coverage.xml
+
+      # push coverage badge
+      - name: Git push to coverage-badge branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./output
+          publish_branch: coverage-badge
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

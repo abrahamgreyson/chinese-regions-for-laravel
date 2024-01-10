@@ -3,7 +3,8 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/abe/chinese-regions-for-laravel.svg?style=flat-square)](https://packagist.org/packages/abe/chinese-regions-for-laravel)
 [![Total Downloads](https://img.shields.io/packagist/dt/abe/chinese-regions-for-laravel.svg?style=flat-square)](https://packagist.org/packages/abe/chinese-regions-for-laravel)
-[![run-tests](https://github.com/abrahamgreyson/chinese-regions-for-laravel/actions/workflows/run-tests.yml/badge.svg)](https://github.com/abrahamgreyson/chinese-regions-for-laravel/actions/workflows/run-tests.yml)
+[![tests](https://github.com/abrahamgreyson/chinese-regions-for-laravel/actions/workflows/run-tests.yml/badge.svg)](https://github.com/abrahamgreyson/chinese-regions-for-laravel/actions/workflows/run-tests.yml)
+[![Coverage](https://github.com/abrahamgreyson/chinese-regions-for-laravel/blob/coverage-badge/coverage.svg)](https://github.com/abrahamgreyson/chinese-regions-for-laravel/actions/workflows/tests.yml)
 
 ## 数据来源
 
