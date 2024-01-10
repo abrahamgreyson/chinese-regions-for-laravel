@@ -51,7 +51,7 @@ jobs:
       - name: Make code coverage badge
 
         uses: timkrase/phpunit-coverage-badge@v1.2.1
-        if: ${{ ! startWith(matrix.os, 'windows') }}
+        if: ${{ ! startsWith(matrix.os, 'windows') }}
         with:
           coverage_badge_path: output/coverage.svg
           report: build/logs/clover.xml
@@ -59,7 +59,7 @@ jobs:
       # push coverage badge
       - name: Git push to coverage-badge branch
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ ! startWith(matrix.os, 'windows') }}
+        if: ${{ ! startsWith(matrix.os, 'windows') }}
         with:
           publish_dir: ./output
           publish_branch: coverage-badge
