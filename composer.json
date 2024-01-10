@@ -55,16 +55,7 @@
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint",
-        "post-autoload-dump": [
-            "@prepare"
-        ],
-        "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "build": "@php vendor/bin/testbench workbench:build --ansi",
-        "serve": [
-            "Composer\\Config::disableProcessTimeout",
-            "@build",
-            "@php vendor/bin/testbench serve"
-        ],
+        "post-autoload-dump": [],
         "lint": [
             "@php vendor/bin/pint",
             "@php vendor/bin/phpstan analyse"
