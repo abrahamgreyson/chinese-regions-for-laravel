@@ -14,6 +14,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('level')->comment('行政级别');
             $table->string('name')->comment('名称');
             $table->unsignedBigInteger('code')->comment('行政区划代码');
+            $table->unsignedBigInteger('parent_code')->nullable()->comment('上级行政区划代码(冗余)');
 
             // 上级省、自治区、直辖市、特别行政区
             $table->unsignedBigInteger('province_code')->nullable()->comment('省级区划代码（上级）');

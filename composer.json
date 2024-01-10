@@ -39,8 +39,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Abe\\ChineseRegionsForLaravel\\": "src",
-            "Abe\\ChineseRegionsForLaravel\\Database\\Factories\\": "database/factories"
+            "Abe\\ChineseRegionsForLaravel\\": "src"
         }
     },
     "autoload-dev": {
@@ -86,7 +85,7 @@
         },
         "laravel": {
             "providers": [
-                "Abe\\ChineseRegionsForLaravel\\Providers\\ChineseRegionsServiceProvider"
+                "Abe\\ChineseRegionsForLaravel\\ChineseRegionsServiceProvider"
             ]
         }
     },

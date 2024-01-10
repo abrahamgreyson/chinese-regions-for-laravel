@@ -16,7 +16,7 @@ class ChineseRegion extends Eloquent
             2 => 'city_code',
             3 => 'area_code',
             4 => 'street_code',
-            default => null
+            default => 'code'
         };
 
         return $this->hasMany(self::class, $foreignKey, 'code')
@@ -33,7 +33,7 @@ class ChineseRegion extends Eloquent
             default => null
         };
 
-        return $this->belongsTo(ChineseRegion::class, $foreignKey, 'code');
+        return $this->belongsTo(self::class, $foreignKey, 'code');
     }
 
     /**
