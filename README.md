@@ -15,14 +15,12 @@
 > * 数据量约为 60 万条, 请耐心等待导入完成
 
 
-## Installation
+## 安装
 
 ##### 先决条件
 - ext_pdo_sqlite 我们需要读取数据源的 SQLite 文件导入到自己的数据库中,一旦导入完成就可以禁用扩展
 
-
-You can install the package via composer:
-
+然后通过 Composer 安装:
 ```bash
 composer require abe/chinese-regions-for-laravel
 ```
@@ -39,7 +37,6 @@ php artisan migrate
 php artisan chinese-regions:import
 ```
 
-## 数据库结构
 
 ## 使用
 
