@@ -11,29 +11,12 @@ class ChineseRegion extends Eloquent
 {
     public function children(): HasMany
     {
-        $foreignKey = match ($this->level) {
-            1 => 'province_code',
-            2 => 'city_code',
-            3 => 'area_code',
-            4 => 'street_code',
-            default => 'code'
-        };
-
-        return $this->hasMany(self::class, $foreignKey, 'code')
-            ->where('level', $this->level + 1);
+        return $this->hasMany(self::class, 'parent_code', 'code');
     }
 
     public function parent(): BelongsTo
     {
-        $foreignKey = match ($this->level) {
-            2 => 'province_code',
-            3 => 'city_code',
-            4 => 'area_code',
-            5 => 'street_code',
-            default => null
-        };
-
-        return $this->belongsTo(self::class, $foreignKey, 'code');
+        return $this->belongsTo(self::class, 'parent_code', 'code');
     }
 
     /**
