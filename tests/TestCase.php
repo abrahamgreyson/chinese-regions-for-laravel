@@ -4,7 +4,6 @@ namespace Abe\ChineseRegionsForLaravel\Tests;
 
 use Abe\ChineseRegionsForLaravel\ChineseRegionsServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -30,13 +29,13 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            ChineseRegionsServiceProvider::class
+            ChineseRegionsServiceProvider::class,
         ];
     }
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 }
