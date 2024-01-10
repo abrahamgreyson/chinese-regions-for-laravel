@@ -1,5 +1,2 @@
 providers:
   - Abe\ChineseRegionsForLaravel\ChineseRegionsServiceProvider
-
-migrations:
-  - database/migrations
