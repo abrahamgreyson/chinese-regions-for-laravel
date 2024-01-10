@@ -68,7 +68,7 @@ test('can get villages', function () {
 test('can get children', function () {
     $street = ChineseRegion::where('code', 230382101)->first();
     expect($street->children)->toHaveCount(2)
-    ->and($street->children->pluck('name')->toArray())->toEqualCanonicalizing(['永泉村委会', '连珠山村委会']);
+        ->and($street->children->pluck('name')->toArray())->toEqualCanonicalizing(['永泉村委会', '连珠山村委会']);
 });
 
 test('village has no children', function () {
