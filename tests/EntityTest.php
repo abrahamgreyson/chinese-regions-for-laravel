@@ -1,6 +1,6 @@
 <?php
 
-namespace Abe\ChineseRegionsForLaravel\Tests\Unit;
+namespace Abe\ChineseRegionsForLaravel\Tests;
 
 use Abe\ChineseRegionsForLaravel\ChineseRegion;
 use Illuminate\Support\Collection;
