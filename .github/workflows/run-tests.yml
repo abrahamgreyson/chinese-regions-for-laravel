@@ -58,7 +58,7 @@ jobs:
 
       # push coverage badge
       - name: Git push to coverage-badge branch
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         if: ${{ ! startsWith(matrix.os, 'windows') && matrix.php == '8.3' && matrix.laravel == '10.*' }}
         with:
           publish_dir: ./output
